@@ -1,23 +1,23 @@
 pipeline {
-	agent any
+    agent any
     environment {
-		VARIABLE_X='Variable Ejemplo SCM Usb cali'
-		PROJECT_NAME='SCM_CALI - Basico'
+        VARIABLE_X = 'Variable Ejemplo SCM Usb cali'
+            PROJECT_NAME = 'SCM_CALI - Basico'
     }
     stages {
-		stage('Etapa 0') {
-			steps {
-				echo "Proyecto ${PROJECT_NAME}"
-			}
-		}
-		stage('Etapa 1') {
+        stage('Etapa 0') {
             steps {
-bat 'mvn -f simple validate'
+                echo "Proyecto ${PROJECT_NAME}"
+            }
+        }
+        stage('Etapa 1') {
+            steps {
+                bat 'mvn -f simple validate'
             }
         }
         stage('Etapa 2') {
             steps {
-               bat 'mvn -f simple install'
+                bat 'mvn -f simple install'
             }
         }
         stage('Etapa 3') {
@@ -25,15 +25,15 @@ bat 'mvn -f simple validate'
                 bat 'mvn -f simple package'
             }
         }
-	stage('Etapa 4') {
+        stage('Etapa 4') {
             steps {
                 bat 'java -cp  simple/target/simple-2.0.jar co.edu.usbcali.scm.App'
             }
         }
     }
-	post {
-		always {
-            echo "Finalizo: ${currentBuild.currentResult}"
+    post {
+        always {
+            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
         }
         aborted {
             echo "BUILD ABORTED"
@@ -47,7 +47,7 @@ bat 'mvn -f simple validate'
         }
         failure {
             echo "BUILD FAILURE"
-			echo "Revisar Fallos"
+            echo "Revisar Fallos"
         }
-	}
+    }
 }
