@@ -27,7 +27,7 @@ bat 'mvn -f simple validate'
         }
 	stage('Etapa 4') {
             steps {
-                bat 'java -jar simple/target/simple-2.0.jar'
+                bat 'java -cp  simple/target/simple-2.0.jar co.edu.usbcali.scm.App'
             }
         }
     }
