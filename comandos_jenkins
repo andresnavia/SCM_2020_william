@@ -25,6 +25,11 @@ bat 'mvn -f simple validate'
                 bat 'mvn -f simple package'
             }
         }
+	stage('Etapa 4') {
+            steps {
+                bat 'java -jar simple\target\simple.jar'
+            }
+        }
     }
 	post {
 		always {
