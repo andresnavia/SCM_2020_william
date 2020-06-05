@@ -30,11 +30,17 @@ pipeline {
                 bat 'java -cp  simple/target/simple-2.0.jar co.edu.usbcali.scm.App'
             }
         }
+        stage('Etapa 5') {
+            steps {
+                  slackSend botUser: true, 
+                  channel: '#avisos', 
+                  color: '#00ff00', 
+                  message: 'Se termina el proceso', 
+                  tokenCredentialId: 'slack-token'
+            }
+        }
     }
     post {
-        always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-        }
         aborted {
             echo "BUILD ABORTED"
         }
