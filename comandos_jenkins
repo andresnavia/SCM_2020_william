@@ -36,7 +36,7 @@ pipeline {
                   channel: '#avisos', 
                   color: '#00ff00', 
                   message: 'Se termina el proceso', 
-                  tokenCredentialId: 'token'
+                  tokenCredentialId: 'wallace-token'
             }
         }
     }
